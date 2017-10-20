@@ -1,0 +1,18 @@
+{
+  "name": "Memory card game",
+  "version": "1.0",
+  "description": "This is a game card practice",
+  "scripts": {
+    "dev": "gulp dev"
+  },
+  "author": "Mary Martinez <mary.angmart@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eyeglass": "^1.3.0",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^4.0.0",
+    "gulp-cli": "^1.4.0",
+    "gulp-connect": "^5.0.0",
+    "gulp-sass": "^3.1.0"
+  }
+}
