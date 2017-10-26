@@ -1,0 +1,21 @@
+.btn {
+  border: 2px solid #fff;
+  cursor: pointer;
+  display: inline-block;
+  padding: 0.4rem 0.9rem;
+  border-radius: 2px;
+  text-transform: uppercase;
+}
+
+.reset-btn {
+  color: #fff;
+  float: right;
+  margin: 1rem;
+
+  &:hover {
+    background-color: #FFF;
+    border: 2px solid #fff;
+    color: #000;
+    box-sizing: border-box;
+  }
+}

@@ -1,0 +1,17 @@
+.l-group {
+  @include micro-clearfix;
+}
+
+.group {
+  @include micro-clearfix;
+  margin: $space-out-medium auto;
+  max-width: 1200px;
+}
+
+.section-wrap {
+  padding: $space-base;
+
+  @include query(600px) {
+    padding: $space-medium;
+  }
+}

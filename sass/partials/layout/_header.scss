@@ -1,0 +1,11 @@
+.site-header {
+  background-color: #000;
+  width: 100%;
+
+  @include micro-clearfix;
+}
+
+.header-container {
+  margin: 0 auto;
+  max-width: 1200px
+}

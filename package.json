@@ -1,6 +1,6 @@
 {
-  "name": "Memory card game",
-  "version": "1.0",
+  "name": "memory-game",
+  "version": "1.0.0",
   "description": "This is a game card practice",
   "scripts": {
     "dev": "gulp dev"
