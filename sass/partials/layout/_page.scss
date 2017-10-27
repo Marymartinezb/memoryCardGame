@@ -4,14 +4,25 @@
 
 .group {
   @include micro-clearfix;
-  margin: $space-out-medium auto;
+  margin: 0 auto;
   max-width: 1200px;
 }
 
-.section-wrap {
-  padding: $space-base;
+.bottom-section {
+  @include query(400px) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
 
-  @include query(600px) {
-    padding: $space-medium;
+.score-container {
+  background-color: $light-coral;
+  font-weight: $font-weight-bold;
+  padding: 1rem;
+
+  p {
+    margin: 0 0 1rem 0;
   }
 }
