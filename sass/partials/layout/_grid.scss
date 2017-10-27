@@ -56,3 +56,12 @@
     width: 6rem;
   }
 }
+
+.front {
+  background-color: transparent;
+  background-image: url("../img/berengena.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border: 3px solid $coral;
+}
