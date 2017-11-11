@@ -28,4 +28,6 @@ var clikedCard = function clikedCard () {
 }
 clikedCard()
 
+// Todo: que sea posible solo clickear 2 cartas a la vez y despues de 5s se vuelvan nuevamente.
+
 // ToDo: cuando 2 cartas coincidan deben ser eliminadas
