@@ -23,11 +23,19 @@ var clikedCard = function clikedCard () {
     card.addEventListener('click', function () {
       this.classList.add('front')
       this.style.backgroundImage = 'url("../img/' + randomCards[index]
+      setTimeout(turnCard, 2000, this)
     })
   }
 }
 clikedCard()
 
-// Todo: que sea posible solo clickear 2 cartas a la vez y despues de 5s se vuelvan nuevamente.
+// ToDo: Hacer que la carta despues de clickeada se vuelva.
+// ToDo: Transition para cuando se borra.
+var turnCard = function turnCard (_self) {
+  _self.classList.remove('front')
+  _self.style.backgroundImage = 'none'
+  document.body.removeEventListener('click', clikedCard)
+}
 
-// ToDo: cuando 2 cartas coincidan deben ser eliminadas
+// Todo: que sea posible solo clickear 2 cartas a la vez.
+// ToDo: cuando 2 cartas coincidan deben ser eliminadas.
