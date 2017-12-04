@@ -7,41 +7,47 @@ var yourScore = document.getElementById('yourScore')
 var score = 0
 var previousCard
 var currentCard
+var clickedCard = []
+var clikedCounter = 0
+var currentNodeCard
+var previousNodeCard
 
 var randomObj = bgImages.sort(function () {
   return 0.5 - Math.random()
 })
 
 // ToDo: Hacer que la carta despues de un tiempo se vuelva.
-var turnCard = function turnCard (_self) {
-  _self.classList.remove('front')
-  _self.style.backgroundImage = 'none'
+var turnCard = function turnCard (card) {
+  setTimeout(function () {
+    card.style.backgroundImage = 'none'
+    card.classList.remove('front')
+  }, 2000)
 }
 
 // ToDo: al iniciar debe de  acomodar las imagenes random por cada carta y mostrarlas por 5s
 var setImage = function setImage (card, index) {
   card.classList.add('front')
   card.style.backgroundImage = 'url("../img/' + randomObj[index].src
-  setTimeout(turnCard, 2000, cards[index])
 }
 
+// ToDo: cuando las cartas coincidan ganar 100 pts, cuando la carta haya sido vista y no coincida perder 50 pts
 // ToDo: cuando 2 cartas coincidan deben quedar visibles
-// ToDo: cuando las cartas coincidan ganar 100 pts, cuando no coindidan perder 50 pts
-var verifingCard = function verifingCard () {
-  // prevenir que la carta se vuelva
-  // colocar las clases para que se queden fijas al coincidir
+var verifingCard = function verifingCard (card, cardId) {
+  // prevenir que la carta se vuelva y que verifique en el primer click
   if (previousCard === currentCard) {
-    console.log('Coinciden')
     score = score + 100
     yourScore.innerHTML = score
-    // pensar mejor
+    // ToDo quitarles el evento, tratar de eliminar el stop propagation o el prevent default
+    previousNodeCard.style.display = 'none'
+    currentNodeCard.style.display = 'none'
   } else {
-    console.log('No Coinciden')
-    if (score > 0) {
-      score = score - 50
-      yourScore.innerHTML = score
-    }
-    // pensar mejor
+    clickedCard.forEach((card) => {
+      if (card === cardId) {
+        score = score - 50
+        yourScore.innerHTML = score
+      }
+    })
+    turnCard(card)
   }
 }
 
@@ -51,7 +57,17 @@ var clikedCard = function clikedCard (card, index) {
     setImage(this, index)
     previousCard = currentCard
     currentCard = randomObj[index].id
-    verifingCard()
+    previousNodeCard = currentNodeCard
+    currentNodeCard = this
+    verifingCard(card, card.id)
+    clickedCard.push(card.id)
+    clikedCounter = clikedCounter + 1
+
+    if (clikedCounter >= 2) {
+      previousCard = NaN
+      console.log('previousCard ' + previousCard)
+    }
+    console.log('clikedCounter ' + clikedCounter)
   })
 }
 
@@ -60,6 +76,7 @@ var init = function init () {
     let cardsId = cards[index].id
     let card = document.getElementById(cardsId)
     setImage(card, index)
+    turnCard(card)
     clikedCard(card, index)
   }
 }
