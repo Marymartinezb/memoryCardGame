@@ -9,8 +9,7 @@ var previousCard
 var currentCard
 var clickedCard = []
 var clikedCounter = 0
-var currentNodeCard
-var previousNodeCard
+var clickedCards = []
 
 var randomObj = bgImages.sort(function () {
   return 0.5 - Math.random()
@@ -33,21 +32,28 @@ var setImage = function setImage (card, index) {
 // ToDo: cuando las cartas coincidan ganar 100 pts, cuando la carta haya sido vista y no coincida perder 50 pts
 // ToDo: cuando 2 cartas coincidan deben quedar visibles
 var verifingCard = function verifingCard (card, cardId) {
-  // prevenir que la carta se vuelva y que verifique en el primer click
   if (previousCard === currentCard) {
     score = score + 100
     yourScore.innerHTML = score
-    // ToDo quitarles el evento, tratar de eliminar el stop propagation o el prevent default
-    previousNodeCard.style.display = 'none'
-    currentNodeCard.style.display = 'none'
-  } else {
+    clickedCards.forEach(id => {
+      let card = document.getElementById(id)
+      card.classList.add('hidden')
+    })
+    clickedCards = []
+    clikedCounter = -1
+  } else if (clikedCounter === 1) {
+    clikedCounter = -1
     clickedCard.forEach((card) => {
       if (card === cardId) {
         score = score - 50
         yourScore.innerHTML = score
       }
     })
-    turnCard(card)
+    clickedCards.forEach(id => {
+      let card = document.getElementById(id)
+      turnCard(card)
+    })
+    clickedCards = []
   }
 }
 
@@ -57,17 +63,15 @@ var clikedCard = function clikedCard (card, index) {
     setImage(this, index)
     previousCard = currentCard
     currentCard = randomObj[index].id
-    previousNodeCard = currentNodeCard
-    currentNodeCard = this
+    clickedCards.push(this.id)
     verifingCard(card, card.id)
     clickedCard.push(card.id)
     clikedCounter = clikedCounter + 1
 
     if (clikedCounter >= 2) {
       previousCard = NaN
-      console.log('previousCard ' + previousCard)
     }
-    console.log('clikedCounter ' + clikedCounter)
+    console.log('previousCard ' + previousCard)
   })
 }
 
