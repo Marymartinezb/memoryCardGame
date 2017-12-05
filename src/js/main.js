@@ -1,13 +1,11 @@
 // ToDo: debe de replicar el array de imagenes, luego unificarlo y por ultimo desordenarlo
-var images = [{src: 'berengena.png', id: 1}, {src: 'mario.png', id: 2}, {src: 'luigui.png', id: 3}, {src: 'zanahoria.png', id: 4}, {src: 'honguito.png', id: 5}, {src: 'cherry.png', id: 6}, {src: 'pacman.png', id: 7}, {src: 'pacwoman.png', id: 8}, {src: 'ghost1.png', id: 9}, {src: 'ghost2.png', id: 10}]
+var images = [{src: 'berengena.png', gameId: 1}, {src: 'mario.png', gameId: 2}, {src: 'luigui.png', gameId: 3}, {src: 'zanahoria.png', gameId: 4}, {src: 'honguito.png', gameId: 5}, {src: 'cherry.png', gameId: 6}, {src: 'pacman.png', gameId: 7}, {src: 'pacwoman.png', gameId: 8}, {src: 'ghost1.png', gameId: 9}, {src: 'ghost2.png', gameId: 10}]
 var bgImages = images.concat(images)
 var cardContainer = document.getElementById('cardContainer')
 var cards = cardContainer.children
 var yourScore = document.getElementById('yourScore')
 var score = 0
-var previousCard
-var currentCard
-var clickedCard = []
+var cardsLog = []
 var clikedCounter = 0
 var clickedCards = []
 
@@ -32,46 +30,45 @@ var setImage = function setImage (card, index) {
 // ToDo: cuando las cartas coincidan ganar 100 pts, cuando la carta haya sido vista y no coincida perder 50 pts
 // ToDo: cuando 2 cartas coincidan deben quedar visibles
 var verifingCard = function verifingCard (card, cardId) {
-  if (previousCard === currentCard) {
+  if (clickedCards[1] !== undefined && clickedCards[0].gameId === clickedCards[1].gameId) {
     score = score + 100
     yourScore.innerHTML = score
-    clickedCards.forEach(id => {
-      let card = document.getElementById(id)
-      card.classList.add('hidden')
+    clickedCards.forEach(obj => {
+      obj.node.classList.add('hidden')
     })
     clickedCards = []
     clikedCounter = -1
   } else if (clikedCounter === 1) {
     clikedCounter = -1
-    clickedCard.forEach((card) => {
+    cardsLog.forEach((card) => {
       if (card === cardId) {
         score = score - 50
         yourScore.innerHTML = score
+        // borre la ultima que clickeo
       }
     })
-    clickedCards.forEach(id => {
-      let card = document.getElementById(id)
-      turnCard(card)
+    clickedCards.forEach(obj => {
+      turnCard(obj.node)
     })
     clickedCards = []
   }
 }
 
 // ToDo: cuando le de click a la carta debe de cambiar el display de la carta
+// ToDo: Arreglar clicker counter
 var clikedCard = function clikedCard (card, index) {
   card.addEventListener('click', function () {
-    setImage(this, index)
-    previousCard = currentCard
-    currentCard = randomObj[index].id
-    clickedCards.push(this.id)
-    verifingCard(card, card.id)
-    clickedCard.push(card.id)
-    clikedCounter = clikedCounter + 1
-
-    if (clikedCounter >= 2) {
-      previousCard = NaN
+    clickedCards.push({'node': card, 'gameId': randomObj[index].gameId})
+    if (clickedCards[1] !== undefined && clickedCards[0].node.id === clickedCards[1].node.id) {
+      alert('Clickee otra carta papita')
+      turnCard(clickedCards[1].node)
+      clickedCards = []
+      return true
     }
-    console.log('previousCard ' + previousCard)
+    setImage(card, index)
+    verifingCard(card, card.id)
+    clikedCounter = clikedCounter + 1 // Trabajarlo
+    cardsLog.push(card.id)
   })
 }
 
