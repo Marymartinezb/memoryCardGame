@@ -3,6 +3,7 @@ const bgImages = images.concat(images);
 const cardContainer = document.getElementById('cardContainer');
 const cards = cardContainer.children;
 const yourScore = document.getElementById('yourScore');
+const finalScore = document.getElementById('bestScore');
 let score = 0;
 const cardsLog = [];
 let clikedCounter = 0;
@@ -97,8 +98,6 @@ const clikedCard = function clikedCard(card, index) {
   });
 };
 
-
-
 const init = function init() {
   for (let index = 0; index < cards.length; index += 1) {
     const cardsId = cards[index].id;
@@ -109,6 +108,9 @@ const init = function init() {
   }
 };
 init();
+
+localStorage.setItem('finalStore', score);
+finalScore.innerHTML = localStorage.getItem('lastname');
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
