@@ -3,5 +3,9 @@
   "env": {
     "browser": true
   },
-  "extends": "standard"
+  "extends": "airbnb-base",
+  "rules": {
+    "no-param-reassign": 0,
+    "arrow-body-style": ["error" , "always"]
+  }
 }
