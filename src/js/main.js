@@ -92,6 +92,8 @@ const clikedCard = function clikedCard(card, index) {
       stopClick = true;
     }
     if (successPair === 10) {
+      console.log('score', score);
+      localStorage.setItem('finalStore', score);
       alert('Usted ha ganado por favor haga click en REINICIAR');
     }
     return true;
@@ -109,8 +111,7 @@ const init = function init() {
 };
 init();
 
-localStorage.setItem('finalStore', score);
-finalScore.innerHTML = localStorage.getItem('lastname');
+finalScore.innerHTML = localStorage.getItem('finalStore');
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {

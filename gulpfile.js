@@ -128,7 +128,7 @@ gulp.task('js:prod', function () {
 // Move manifest.
 //
 gulp.task('static', function () {
-  return gulp.src('static/*.*')
+  return gulp.src('src/static/*.*')
     .pipe(gulp.dest('dist/static'))
 })
 
@@ -204,12 +204,20 @@ gulp.task('clean', function () {
   ])
 })
 
+gulp.task('server', function () {
+  connect.server({
+    livereload: true,
+    root: 'dist'
+  })
+})
+
 //
 // Composite Task declarations.
 //
-gulp.task('dev', ['html:dev', 'images:dev', 'styles:dev', 'js:dev', 'connect', 'watch'])
+gulp.task('dev', ['html:dev', 'images:dev', 'styles:dev', 'js:dev', 'connect', 'watch']);
 
 gulp.task('build', function () {
   runSequence(['lint', 'html:prod', 'images:prod', 'styles:prod', 'js:prod', 'static'], 'generate-sw');
 })
-gulp.task('styleguide', ['styleguide:generate', 'styleguide:watch'])
+
+gulp.task('styleguide', ['styleguide:generate', 'styleguide:watch']);
